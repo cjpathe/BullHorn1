@@ -38,7 +38,7 @@
  <!-- Bootstrap allows me to put a form here and it will show in the navbar.
  I want to use a form so it can call the servlet with the Post method. 
  -->
- <form class="navbar-form navbar-left" role="form" action="LoginServlet" method="post">
+ <form class="navbar-form navbar-left" role="form" action="Login" method="post">
  <input type="hidden" name="action" id="action" value="logout"/>
  <button class="btn btn-default" id="addBookButton">Logout</button> 
  </form>

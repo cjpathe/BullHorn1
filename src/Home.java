@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import customTools.DBUser;
+import customTools.DbBullhorn;
 import model.BHUser;
 
 /**
@@ -58,9 +59,11 @@ public class Home extends HttpServlet {
 		 
 		//get user information from session so we can connect to the db
 		BHUser user = (BHUser)session.getAttribute("user");
-		 
+		DbBullhorn.insert(postdate, posttext, user.getBhuserid());
+		nextURL = "/Home.jsp";
+				 
 		//go to the newsfeed or error
-		getServletContext().getRequestDispatcher(nextURL).forward(request, response);
+		// getServletContext().getRequestDispatcher(nextURL).forward(request, response);
 	}
 
 }

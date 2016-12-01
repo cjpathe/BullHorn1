@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<jsp:include page="bootstrap.jsp"></jsp:include>
 <title>Bullhorn Home Page</title>
 </head>
 <body>
@@ -20,5 +21,6 @@
                     <input type="reset" value="Clear"/>
                 </div>  
             </form>  
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
