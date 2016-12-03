@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
+
 public class BHPost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -11,6 +12,7 @@ public class BHPost implements Serializable {
 	private Date postdate;
 	private String posttext;
 	private long bhuserid;
+	private BHUser bhuser;
 
 	public long getPostid() {
 		return this.postid;
@@ -42,6 +44,10 @@ public class BHPost implements Serializable {
 
 	public void setBhuserid(long bhuserid) {
 		this.bhuserid = bhuserid;
+	}
+	
+	public BHUser getBhuser(){
+		return customTools.DBUser.getUser(this.bhuserid);	
 	}
 
 }

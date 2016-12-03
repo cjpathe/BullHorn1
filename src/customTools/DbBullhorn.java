@@ -49,7 +49,7 @@ public static void update() {
 
 public static List<BHPost> AllPosts () throws SQLException, ClassNotFoundException{
 List<BHPost> posts = new ArrayList<BHPost>();
-String sql = "select postid,postdate,posttext,bhuserid from bhpost";
+String sql = "select postid,postdate,posttext,bhuserid from bhpost order by postdate desc";
 ResultSet rs = null;
 Connection con = null;
 PreparedStatement pstmt = null;
@@ -89,14 +89,39 @@ List<BHPost> userposts = new ArrayList<BHPost>();
 return userposts;
 }
 
-public static List<BHPost> searchPosts (String search)
+public static List<BHPost> searchPosts (String search) throws SQLException, ClassNotFoundException
 {
-List<BHPost> searchposts = new ArrayList<BHPost>();
+	List<BHPost> searchposts = new ArrayList<BHPost>();
 
-String qString = "select b from Bhpost b "
-+ "where b.posttext like :search";
+	String qString = "%"+search+"%";
+	String sql = "select * from BHPost where lower(posttext) like lower(?) order by postdate desc";
+	System.out.println("DbBullhorn search string = " + sql + qString);
+	ResultSet rs = null;
+	Connection con = null;
+	PreparedStatement pstmt = null;
 
-return searchposts;
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	con = DriverManager.getConnection("jdbc:oracle:thin:ora1/ora1@localhost:1521:orcl");
+	pstmt = con.prepareStatement(sql);
+	pstmt.setString(1, qString);
+	rs = pstmt.executeQuery();
+	System.out.println("BDbBullhorn search request successful");
+	// Fetch each row from the result set
+	while (rs.next()) {
+			long postid = rs.getInt("postid");
+			java.util.Date postdate = rs.getDate("postdate");
+			String posttext = rs.getString("posttext");
+			long userid = rs.getLong("bhuserid");
+
+			BHPost p = new BHPost();
+			p.setPostid(postid);
+			p.setPostdate(convertJavaDateToSqlDate(postdate));
+			p.setPosttext(posttext);
+			p.setBhuserid(userid);
+			//add the post to the arraylist
+			searchposts.add(p);
+	}
+	return searchposts;
 }
 
 public static java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {

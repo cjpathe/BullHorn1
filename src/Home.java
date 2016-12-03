@@ -51,9 +51,11 @@ public class Home extends HttpServlet {
 		//kill the session while you're at it.
 		 HttpSession session = request.getSession();
 		if (session.getAttribute("user")==null){
-		    nextURL = "/Login.jsp";
+		    System.out.println("Home.java next URL = Login.jsp");
+			nextURL = "/Login.jsp";
 		    session.invalidate();
 		    response.sendRedirect(request.getContextPath() + nextURL);
+		    System.out.println("Home.java send redirect = Login.jsp");
 		    return;//return prevents an error
 		}
 		 
@@ -64,6 +66,9 @@ public class Home extends HttpServlet {
 				 
 		//go to the newsfeed or error
 		// getServletContext().getRequestDispatcher(nextURL).forward(request, response);
+		System.out.println("Home.java get servlet context = Home.jsp");
+		response.sendRedirect(request.getContextPath() + nextURL);
+		System.out.println("Home.java send redirect = Home.jsp");
 	}
 
 }
