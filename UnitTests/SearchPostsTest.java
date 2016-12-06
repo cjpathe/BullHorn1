@@ -20,7 +20,7 @@ public class SearchPostsTest {
 			ArrayList<BHPost> posts = (ArrayList) DbBullhorn.searchPosts("minion");
 			for (Integer j=0; j <posts.size(); j++) {
 				BHPost printPost = new BHPost();
-				printPost = posts(j);
+				printPost = posts.get(j);
 				System.out.println( printPost.getPosttext());
 			}
 		} catch (ClassNotFoundException | SQLException e) {

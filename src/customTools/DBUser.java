@@ -61,8 +61,7 @@ public class DBUser {
 	}
 	
 	public static int insert(BHUser bhUser) {
-		String sql = "insert into bhuser (username,useremail,userpassword,joindate,motto) " + 
-				"values(?,?,?,?,?)";
+		String sql = "insert into bhuser (username,useremail,userpassword,joindate,motto) values(?,?,?,?,?)"; 
 		int recordsAffected = 0;
 		BHUser user = null;
 		ResultSet rs = null;
@@ -73,7 +72,8 @@ public class DBUser {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:ora1/ora1@localhost:1521:orcl");
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,bhUser.getUsername());
+			System.out.println("User being added = " + bhUser.getUsername());
+			pstmt.setString(1, bhUser.getUsername());
 			pstmt.setString(2, bhUser.getUseremail());
 			pstmt.setString(3, bhUser.getUserpassword());
 			pstmt.setDate(4, null);
